@@ -160,6 +160,19 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/map',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'map',
+        component: () => import('@/views/BaiduMap/Map'),
+        meta: { title: 'Map', icon: 'form' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
