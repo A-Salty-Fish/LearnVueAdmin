@@ -1,24 +1,25 @@
 <template>
   <div>
     <el-table
-      :data="tableData"
+      id="TableTop"
+      :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       style="width: 100%">
       <el-table-column
         align='center'
         prop="date"
         label="日期"
-        min-width="360px">
+        >
       </el-table-column>
       <el-table-column
         align='center'
         prop="title"
         label="标题"
-        min-width="360px">
+        >
       </el-table-column>
       <el-table-column
         align='center'
         label="操作"
-        min-width="360px">
+        >
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button type="text" size="small">编辑</el-button>
@@ -28,11 +29,9 @@
     <div class="pagination">
       <el-pagination
         :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
-        layout="total, sizes, prev, pager, next, jumper"
+        :page-size="pageSize"
+        layout="total, jumper, prev, pager, next"
         :total="tableData.length"
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
     </div>
@@ -45,12 +44,13 @@ export default {
   data() {
     return {
       currentPage: 1,
-      tableData: []
+      pageSize: 10,
+      tableData: [],
     }
   },
   created() {
     var that = this
-    for (var i = 0; i < 41; i++) {
+    for (var i = 0; i < 47; i++) {
       that.tableData[i] = {
         date: '日期' + i,
         title: '标题' + i
@@ -58,10 +58,9 @@ export default {
     }
   },
   methods: {
-    handleSizeChange() {
-    },
-    handleCurrentChange() {
-      console.log(this.currentPage)
+    handleCurrentChange(currentPage) {
+      this.currentPage = currentPage
+      location.href = '#TableTop'
     }
   }
 }
