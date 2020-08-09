@@ -51,8 +51,21 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '实验室管理系统', icon: 'dashboard' }
     }]
+  },
+
+  {
+    path: '/Notice',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Notice',
+        component: () => import('@/views/Notice/index'),
+        meta: { title: '公告', icon: 'star' }
+      }
+    ]
   },
 
   {
@@ -150,15 +163,27 @@ export const constantRoutes = [
   },
 
   {
-    path: 'external-link',
+    path: '/Charts',
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'index',
+        name: 'Charts',
+        component: () => import('@/views/charts/index'),
+        meta: { title: '图表', icon: 'chart' }
       }
     ]
   },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/map',
@@ -169,19 +194,6 @@ export const constantRoutes = [
         name: 'map',
         component: () => import('@/views/BaiduMap/Map'),
         meta: { title: 'Map', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/Notice',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Notice',
-        component: () => import('@/views/Notice/index'),
-        meta: { title: '公告', icon: 'form' }
       }
     ]
   },

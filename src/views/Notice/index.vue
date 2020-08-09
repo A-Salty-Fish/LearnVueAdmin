@@ -6,6 +6,7 @@
       style="width: 100%">
       <el-table-column
         align='center'
+        label="日期"
         >
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
