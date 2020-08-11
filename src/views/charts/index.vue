@@ -1,7 +1,7 @@
 <template>
   <div class="Echarts">
-    <div id="chart1" style="width: 600px;height:600px; display: flex" />
-    <div id="chart2" style="width: 600px;height:600px; display: flex" />
+    <div id="chart1" style="width: 600px;height:600px; float: left" />
+    <div id="chart2" style="width: 600px;height:600px; float: left" />
   </div>
 </template>
 
@@ -47,7 +47,6 @@ export default {
             name: '签到情况',
             type: 'pie',
             radius: '50%', // 饼图的半径大小
-            center: ['50%', '50%'], // 饼图的位置
             label: { // 饼图图形上的文本标签
               normal: {
                 show: true,
@@ -71,6 +70,36 @@ export default {
       pieEchart.setOption(pieoption)
     },
     myEcharts2() {
+      var option = {
+        title: {
+          text: '签到数量',
+          x: 'left',
+          textStyle: {
+            color: 'black',
+            fontSize: 25
+          }
+        },
+        tooltip: {},
+        legend: {
+          data: ['日期']
+        },
+        xAxis: {
+          data: ['Aug 6', 'Aug 7', 'Aug 8', 'Aug 9', 'Aug 10', 'Aug 11']
+        },
+        yAxis: {
+        },
+        series: [{
+          name: '访问量',
+          type: 'line',
+          data: [600, 310, 200, 800, 440, 560],
+          smooth: true // true 为平滑曲线，false为直线
+        }]
+      }
+      // 初始化echarts实例
+      var myChart = echarts.init(document.getElementById('chart2'))
+
+      // 使用制定的配置项和数据显示图表
+      myChart.setOption(option)
     }
   }
 }
