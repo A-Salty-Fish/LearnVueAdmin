@@ -84,18 +84,29 @@ export default {
           data: ['日期']
         },
         xAxis: {
-          data: ['Aug 6', 'Aug 7', 'Aug 8', 'Aug 9', 'Aug 10', 'Aug 11']
+          data: []
         },
         yAxis: {
         },
+        dataZoom: [
+          { // 这个dataZoom组件，默认控制x轴。
+            type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+            start: 10, // 左边在 10% 的位置。
+            end: 60 // 右边在 60% 的位置。
+          }
+        ],
         series: [{
           name: '访问量',
           type: 'line',
-          data: [600, 310, 200, 800, 440, 560],
+          data: [],
           smooth: true // true 为平滑曲线，false为直线
         }]
       }
       // 初始化echarts实例
+      for (var i = 1; i <= 31; i++) {
+        option.xAxis.data[i - 1] = 'Aug ' + i
+        option.series[0].data[i - 1] = Math.random() * 50
+      }
       var myChart = echarts.init(document.getElementById('chart2'))
 
       // 使用制定的配置项和数据显示图表
