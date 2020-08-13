@@ -8,16 +8,37 @@
 <script>
 import echarts from 'echarts'
 export default {
+  data() {
+    return {
+      monthStatus: [],
+      pieEchart: null,
+      pieOption: null,
+      lineEchart: null,
+      lineOption: null
+    }
+  },
+  created() {
+    var that = this
+    for (var i = 0; i < 31; i++) {
+      that.monthStatus[i] =
+        [
+          { value: 0, name: '区域外', itemStyle: { normal: { color: 'red' }}},
+          { value: 0, name: '区域内', itemStyle: { normal: { color: 'green' }}}
+        ]
+      that.monthStatus[i][0].value = Math.floor(Math.random() * 250)
+      that.monthStatus[i][1].value = Math.floor(Math.random() * 250)
+    }
+  },
   mounted() {
     this.myEcharts1()
     this.myEcharts2()
   },
   methods: {
     myEcharts1() {
-      var pieEchart = echarts.init(document.getElementById('chart1'))
-
+      this.pieEchart = echarts.init(document.getElementById('chart1'))
+      var that = this
       // 指定图表的配置项和数据
-      var pieoption = {
+      this.pieOption = {
         title: {
           text: '签到情况',
           x: 'left',
@@ -60,17 +81,20 @@ export default {
               }
             },
             data: [
-              { value: 50, name: '区域外', itemStyle: { normal: { color: 'red' }}},
-              { value: 236, name: '区域内', itemStyle: { normal: { color: 'green' }}}
+              { value: 0, name: '区域外', itemStyle: { normal: { color: 'red' }}},
+              { value: 0, name: '区域内', itemStyle: { normal: { color: 'green' }}}
             ]
           }
         ]
       }
       // 使用刚指定的配置项和数据显示图表。
-      pieEchart.setOption(pieoption)
+      this.pieOption.series[0].data[0] = that.monthStatus[0][0]
+      this.pieOption.series[0].data[1] = that.monthStatus[0][1]
+      this.pieEchart.setOption(this.pieOption)
     },
     myEcharts2() {
-      var option = {
+      var that = this
+      this.lineOption = {
         title: {
           text: '签到数量',
           x: 'left',
@@ -112,12 +136,18 @@ export default {
       }
       // 初始化echarts实例
       for (var i = 1; i <= 31; i++) {
-        option.xAxis.data[i - 1] = 'Aug ' + i + 'th'
-        option.series[0].data[i - 1] = Math.floor(Math.random() * 50)
+        this.lineOption.xAxis.data[i - 1] = 'Aug ' + i + 'th'
+        this.lineOption.series[0].data[i - 1] = Math.floor(Math.random() * 50)
       }
-      var myChart = echarts.init(document.getElementById('chart2'))
+      this.lineEchart = echarts.init(document.getElementById('chart2'))
       // 使用制定的配置项和数据显示图表
-      myChart.setOption(option)
+      this.lineEchart.setOption(this.lineOption)
+      this.lineEchart.on('click', function(params) {
+        console.log(params)
+        that.pieOption.series[0].data[0] = that.monthStatus[params.dataIndex][0]
+        that.pieOption.series[0].data[1] = that.monthStatus[params.dataIndex][1]
+        that.pieEchart.setOption(that.pieOption)
+      })
     }
   }
 }
