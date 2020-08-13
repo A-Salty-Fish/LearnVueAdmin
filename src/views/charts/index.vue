@@ -79,7 +79,10 @@ export default {
             fontSize: 25
           }
         },
-        tooltip: {},
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c}'
+        },
         legend: {
           data: ['日期']
         },
@@ -91,7 +94,12 @@ export default {
         dataZoom: [
           { // 这个dataZoom组件，默认控制x轴。
             type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
-            start: 10, // 左边在 10% 的位置。
+            start: 40, // 左边在 10% 的位置。
+            end: 60 // 右边在 60% 的位置。
+          },
+          { // 这个dataZoom组件，也控制x轴。
+            type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+            start: 40, // 左边在 10% 的位置。
             end: 60 // 右边在 60% 的位置。
           }
         ],
@@ -104,11 +112,10 @@ export default {
       }
       // 初始化echarts实例
       for (var i = 1; i <= 31; i++) {
-        option.xAxis.data[i - 1] = 'Aug ' + i
-        option.series[0].data[i - 1] = Math.random() * 50
+        option.xAxis.data[i - 1] = 'Aug ' + i + 'th'
+        option.series[0].data[i - 1] = Math.floor(Math.random() * 50)
       }
       var myChart = echarts.init(document.getElementById('chart2'))
-
       // 使用制定的配置项和数据显示图表
       myChart.setOption(option)
     }
