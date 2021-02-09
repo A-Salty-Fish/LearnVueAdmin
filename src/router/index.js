@@ -46,12 +46,11 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '实验室管理系统', icon: 'dashboard' }
+      meta: { title: 'dashboard', icon: 'dashboard' }
     }]
   },
 
@@ -69,11 +68,50 @@ export const constantRoutes = [
   },
 
   {
+    path: '/ItemInfo',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'ItemInfo',
+        component: () => import('@/views/ItemsInfo/index'),
+        meta: { title: '器材信息', icon: 'form' }
+      }
+    ]
+  },
+
+  {
+    path: '/Charts',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Charts',
+        component: () => import('@/views/charts/index'),
+        meta: { title: '图表', icon: 'chart' }
+      }
+    ]
+  },
+
+  {
+    path: '/map',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'map',
+        component: () => import('@/views/TencentMap/Map'),
+        meta: { title: '地图', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    meta: { title: 'Example', icon: 'el-icon-s-help', roles: ['editor'] },
     children: [
       {
         path: 'table',
@@ -162,18 +200,6 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/Charts',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Charts',
-        component: () => import('@/views/charts/index'),
-        meta: { title: '图表', icon: 'chart' }
-      }
-    ]
-  },
   // {
   //   path: 'external-link',
   //   component: Layout,
@@ -184,19 +210,6 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
-
-  {
-    path: '/map',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'map',
-        component: () => import('@/views/BaiduMap/Map'),
-        meta: { title: 'Map', icon: 'form' }
-      }
-    ]
-  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
