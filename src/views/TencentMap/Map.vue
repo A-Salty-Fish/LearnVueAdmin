@@ -7,6 +7,7 @@
 <script>
 var center = new TMap.LatLng(30.538435, 114.357496)
 var map, markerLayer
+import { signInAPI } from '@/api/signin.js'
 export default {
   name: 'Index',
   data() {
@@ -24,6 +25,7 @@ export default {
     this.setMapData()
   },
   created() {
+    signInAPI().getToday()
   },
   methods: {
     setMapData() {
@@ -45,7 +47,7 @@ export default {
             // 焦点在图片中的像素位置，一般大头针类似形式的图片以针尖位置做为焦点，圆形点以圆心位置为焦点
             'anchor': { x: 16, y: 32 }
           })
-        },
+        }
         // 点标记数据数组
         // geometries: [{
         //   'id': '1', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
@@ -78,7 +80,7 @@ export default {
       // 监听回调函数（非匿名函数）
       var clickHandler = function(evt) {
         // console.log(evt.geometries[0].properties.name)
-        evt.cluster.geometries.forEach(x=>console.log(x.properties.name))
+        evt.cluster.geometries.forEach(x => console.log(x.properties.name))
         // console.log(evt.cluster.geometries[0].properties.name)
         // alert(evt.geometry)
       }
