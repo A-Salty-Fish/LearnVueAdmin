@@ -1,10 +1,9 @@
 import axios from 'axios'
+const url = 'http://localhost:8080'
 export function signInAPI() {
   return {
     getToday: function() {
-      axios.get('http://localhost:8080/signin/getToday').then(res => {
-        console.log(res.data)
-      })
+      return axios.get(url + '/signin/getToday')
     }
   }
 }

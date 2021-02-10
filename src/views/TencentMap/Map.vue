@@ -25,7 +25,9 @@ export default {
     this.setMapData()
   },
   created() {
-    signInAPI().getToday()
+    signInAPI().getToday().then(res => {
+      console.log(res.data)
+    })
   },
   methods: {
     setMapData() {
