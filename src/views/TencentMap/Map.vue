@@ -6,7 +6,7 @@
 
 <script>
 var center = new TMap.LatLng(30.538435, 114.357496)
-var map, markerLayer, markerCluster, infoWindow
+var map, markerLayer, markerCluster, infoWindow, circle
 import { signInAPI } from '@/api/signin.js'
 export default {
   name: 'Index',
@@ -45,25 +45,23 @@ export default {
             'height': 35, // 点标记样式高度（像素）
             // 焦点在图片中的像素位置，一般大头针类似形式的图片以针尖位置做为焦点，圆形点以圆心位置为焦点
             'anchor': { x: 16, y: 32 }
+          }),
+          'centerStyle': new TMap.MarkerStyle({
+            'width': 35, // 点标记样式宽度（像素）
+            'height': 35, // 点标记样式高度（像素）
+            'src': 'https://cn.bing.com/images/search?view=detailV2&ccid=rbQKAYHP&id=3410925EFEFBAD969C5F154E102898FEFEA67EA0&thid=OIP.rbQKAYHP1OXcQO5t-gR0ZwAAAA&mediaurl=https%3a%2f%2fbkimg.cdn.bcebos.com%2fpic%2f7af40ad162d9f2d3a8b40d3da2ec8a136227ccbf%3fx-bce-process%3dimage%2fresize%2cm_lfit%2cw_268%2climit_1%2fformat%2cf_jpg&exph=261&expw=268&q=%e6%ad%a6%e6%b1%89%e5%a4%a7%e5%ad%a6%e8%ae%a1%e7%ae%97%e6%9c%ba%e5%ad%a6%e9%99%a2%e5%be%bd&simid=607999866080920056&ck=8ACA68726B11BCADC32D97D7CEB99026&selectedIndex=0&FORM=IRPRST'
           })
-        }
+        },
         // 点标记数据数组
-        // geometries: [{
-        //   'id': '1', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
-        //   'styleId': 'myStyle', // 指定样式id
-        //   'position': new TMap.LatLng(30.538435, 114.357496), // 点标记坐标位置
-        //   'properties': { // 自定义属性
-        //     'title': 'marker1'
-        //   }
-        // }, { // 第二个点标记
-        //   'id': '2',
-        //   'styleId': 'myStyle',
-        //   'position': new TMap.LatLng(30.538386, 114.357487),
-        //   'properties': {
-        //     'title': 'marker2'
-        //   }
-        // }
-        // ]
+        geometries: [{
+          'id': '1', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
+          'styleId': 'myStyle', // 指定样式id
+          'position': center, // 点标记坐标位置
+          'properties': { // 自定义属性
+            'title': '计算机学院'
+          }
+        }
+        ]
       })
 
       // markerLayer.add([{
@@ -133,6 +131,23 @@ export default {
           conStr += '</table>'
           infoWindow.setContent(conStr)// 设置信息窗内容
         })
+      })
+      // 创建圆形覆盖物
+      circle = new TMap.MultiCircle({
+        map,
+        styles: { // 设置圆形样式
+          'circle': new TMap.CircleStyle({
+            'color': 'rgba(41,91,255,0.16)',
+            'showBorder': true,
+            'borderColor': 'rgba(41,91,255,1)',
+            'borderWidth': 2
+          })
+        },
+        geometries: [{
+          styleId: 'circle',
+          center: center, // 圆形中心点坐标
+          radius: 70	// 半径（单位：米）
+        }]
       })
     }
   }
